@@ -7,7 +7,7 @@ import (
 	"slices"
 )
 
-var lower_case = []rune{
+var lower_case = []byte{
 	'a', 'b', 'c', 'd', 'e', 'f',
 	'g', 'h', 'i', 'j', 'k', 'l',
 	'm', 'n', 'o', 'p', 'q', 'r',
@@ -15,7 +15,7 @@ var lower_case = []rune{
 	'y', 'z',
 }
 
-var upper_case = []rune{
+var upper_case = []byte{
 	'A', 'B', 'C', 'D', 'E', 'F',
 	'G', 'H', 'I', 'J', 'K', 'L',
 	'M', 'N', 'O', 'P', 'Q', 'R',
@@ -23,11 +23,11 @@ var upper_case = []rune{
 	'Y', 'Z',
 }
 
-var number_case = []rune{
+var number_case = []byte{
 	'1', '2', '3', '4', '5', '6', '7', '9', '0',
 }
 
-var symbol_case = []rune{
+var symbol_case = []byte{
 	'~', '`', '!', '@', '#', '$', '%',
 	'^', '&', '*', '(', ')', '-', '=',
 	'_', '+', '\\', ']', '[', '{', '}',
@@ -36,8 +36,8 @@ var symbol_case = []rune{
 }
 var default_options []Options = []Options{LowerCase, Number}
 
-func getOptionsValues(options ...Options) []rune {
-	result := make([]rune, 0, 100)
+func getOptionsValues(options ...Options) []byte {
+	result := make([]byte, 0, 100)
 	for _, v := range options {
 		switch v {
 		case LowerCase:
@@ -67,7 +67,7 @@ func RandomPassword(length uint, options ...Options) (string, error) {
 	charset := getOptionsValues(options...)
 	length_charset := big.NewInt(int64(len(charset)))
 
-	result := make([]rune, length)
+	result := make([]byte, length)
 
 	for i := 0; i < int(length); i++ {
 		n, err := rand.Int(rand.Reader, length_charset)
@@ -89,7 +89,7 @@ func RandomPasswordUnique(length uint, options ...Options) (string, error) {
 	}
 	charset := getOptionsValues(options...)
 	length_charset := big.NewInt(int64(len(charset)))
-	result := make([]rune, length)
+	result := make([]byte, length)
 
 	retry := 0
 	success := 0
